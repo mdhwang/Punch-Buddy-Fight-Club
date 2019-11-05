@@ -20,3 +20,8 @@ Future use of data:
 - Gamification of workouts based on user dealing a certain amount of "damage" to the bag
 - Ideally be able to critique form when compared to professionals and recommend exercises and drills to improve
 - 
+
+## Initial Data
+
+Event identification by combining overall magnitude of accerations to determine a punch
+![10 Jab Test](images/10_Jab_Test.png)
