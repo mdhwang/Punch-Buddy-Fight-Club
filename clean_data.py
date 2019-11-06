@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+import pickle
+from datetime import datetime
 
 def known_clean_data(input_data_accel,input_data_gyro,num_punches,window,category):
 
@@ -20,8 +22,9 @@ def known_clean_data(input_data_accel,input_data_gyro,num_punches,window,categor
 
     # OUTPUT
     # -------------------------------------------------------------------
-    # punch_data - list of pandas dataframes truncated into individual events
-    #              with labeles and reset time for given interval
+    # punch_data - json object containing cleaning params and data of punches
+    #              params - dict of dict {category, num_punches, window}
+    #              data -  list of pandas dataframes containing sensor data with target labels.  
 
     # drop extraneous columns
     drop_cols = ['epoch (ms)','time (-08:00)']
@@ -48,5 +51,18 @@ def known_clean_data(input_data_accel,input_data_gyro,num_punches,window,categor
         dummy['target'] = category
         dummy = dummy.drop(['elapsed (s)'],axis=1)
         punch_data.append(dummy)
-        
-    return punch_data
+    
+    data_obj = {}
+    data_obj['params'] = {}
+    data_obj['params']['category'] = category
+    data_obj['params']['num_punches'] = num_punches
+    data_obj['params']['window'] = window
+    data_obj['data'] = punch_data
+    
+    current_time = datetime.now().strftime("%m.%d.%Y, %H.%M.%S")
+    with open('/Users/matthewhwang/Galvanize/fightclub/data/processed/{}/{} {} win{} - {}.p'.format(category,category,num_punches,window,current_time), 'wb') as f:
+        pickle.dump(data_obj, f)
+
+    print("Stored {} {} win{} - {} successfully".format(category,num_punches,window,current_time))
+    
+    pass
