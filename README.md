@@ -25,3 +25,27 @@ Future use of data:
 
 Event identification by combining overall magnitude of accerations to determine a punch
 ![10 Jab Test](images/10_Jab_Test.png)
+
+## Comparison of Different Strikes - Combined Magnitude Accelerometer
+
+### Jab
+![50 Jabs Mag](images/50JabsCombinedMagnitude.png)
+
+### Hook
+![50 Hooks Mag](images/50HooksCombinedMagnitude.png)
+
+### Cross
+![50 Cross Mag](images/50CrossesCombinedMagnitude.png)
+
+
+
+## Comparison of Different Strikes - Gyroscopic Data
+
+### Jab
+![50 Jabs Mag](images/50JabsAngularVelo.png)
+
+### Hook
+![50 Hooks Mag](images/50HooksAngularVelo.png)
+
+### Cross
+![50 Cross Mag](images/50CrossesAngularVelo.png)
