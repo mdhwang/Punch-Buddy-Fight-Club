@@ -47,7 +47,7 @@ def known_clean_data(input_data_accel,input_data_gyro,num_punches,window,categor
     for each in event_index:
         data_pts = window * 2 + 1
         dummy = combined.iloc[each-window:each+window+1]
-        dummy["time"] = list(np.linspace(0 , data_pts * 0.04 , data_pts))
+        dummy["time step"] = list(np.linspace(0 , data_pts * 0.04 , data_pts))
         dummy['target'] = category
         dummy = dummy.drop(['elapsed (s)'],axis=1)
         punch_data.append(dummy)
