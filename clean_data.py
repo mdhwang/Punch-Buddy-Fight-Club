@@ -65,4 +65,5 @@ def known_clean_data(input_data_accel,input_data_gyro,num_punches,window,categor
 
     print("Stored {} {} win{} - {} successfully".format(category,num_punches,window,current_time))
     
-    pass
+    
+    return data_obj
