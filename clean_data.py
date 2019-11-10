@@ -77,12 +77,10 @@ def known_clean_data(accel_data,gyro_data,num_punches,window,category,user):
     # magnitude unnecessary once used to ID location of events
     combined = combined.drop(["elapsed (s)","magnitude"],axis=1)
 
-    combined['category'] = category
-
     # find event and store window of data surrounding it
     punch_data = []
     for each in event_index:
-        punch_data.append(combined.iloc[each-window:each+window+1])
+        punch_data.append(combined.iloc[each-window:each+window+1].reset_index(drop=True))
     
     data_obj = {}
     data_obj['params'] = {}
@@ -93,10 +91,12 @@ def known_clean_data(accel_data,gyro_data,num_punches,window,category,user):
     data_obj['data'] = punch_data
     
     current_time = datetime.now().strftime("%m.%d.%Y, %H.%M.%S")
-    with open('/Users/matthewhwang/Galvanize/fightclub/data/processed/{}/{} {} win{} - {}.p'.format(category,category,num_punches,window,current_time), 'wb') as f:
+    file_name = '{} {} win{} - {}'.format(category,category,num_punches,window,current_time)
+    with open('/Users/matthewhwang/Galvanize/fightclub/data/processed/{}/{}.p'.format(category,file_name), 'wb') as f:
         pickle.dump(data_obj, f)
-
-    print("Stored {} {} win{} - {} successfully".format(category,num_punches,window,current_time))
+    with open('/Users/matthewhwang/Galvanize/fightclub/data/processed/all/{}.p'.format(file_name), 'wb') as f:
+        pickle.dump(data_obj, f)
+    print("Stored {} successfully".format(file_name))
     
     
-    return data_obj
+    pass
