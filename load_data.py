@@ -12,10 +12,10 @@ def load_data():
     print("Load Data Begin")
     path = '/Users/matthewhwang/Galvanize/fightclub/data/processed/load_data/'
 
-    cypher = {"Left Jab": 1,
-              "Right Cross": 2,
-              "Left Hook": 3,
-              "Right Hook": 4}
+    cypher = {"Left Jab": 0,
+              "Right Cross": 1,
+              "Left Hook": 2,
+              "Right Hook": 3}
 
     files = [f for f in glob.glob(path + "*.p")]
 
@@ -37,6 +37,9 @@ def load_data():
     standardized = []
     for each in master:
         standardized.append(standardize(each,std,mean))
+
+    print("Completed")
+    print("{} events included".format(len(standardized)))
 
     return np.array(standardized),np.array(labels)
 

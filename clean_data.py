@@ -14,15 +14,20 @@ def process_staging():
     path = '/Users/matthewhwang/Galvanize/fightclub/data/staging'
     folders = []
     
+    print("PATHS")
+    print("----------------------------------------------")
     # Gets file paths for all folders in staging
     for r, d, f in os.walk(path):
         for folder in d:
             folders.append(os.path.join(r, folder))
 
+    for each in folders:
+        print(each)
+
     # From each folder get csv path for each accel and gyro
     # Calls Known Clean Data function to process and store
     for each in folders:
-        files = [f for f in glob.glob(folders[0] + "**/*.csv")]
+        files = [f for f in glob.glob(each + "**/*.csv")]
         accel_data = pd.read_csv(files[0])
         gyro_data = pd.read_csv(files[1])
         name = files[0].split('/')[-1].split(' ')
@@ -30,7 +35,6 @@ def process_staging():
         count = int(name[2])
         user = name[3]
         known_clean_data(accel_data,gyro_data,count,8,category,user)
-        print("Did one")
     print("Finished")
     pass
 
@@ -90,8 +94,8 @@ def known_clean_data(accel_data,gyro_data,num_punches,window,category,user):
     data_obj['params']['fighter'] = user
     data_obj['data'] = punch_data
     
-    current_time = datetime.now().strftime("%m.%d.%Y, %H.%M.%S")
-    file_name = '{} {} win{} - {}'.format(category,category,num_punches,window,current_time)
+    current_time = datetime.now().strftime("%m.%d.%Y, %H.%M.%S.%f")
+    file_name = '{} {} win{} - {}'.format(category,num_punches,window,current_time)
     with open('/Users/matthewhwang/Galvanize/fightclub/data/processed/{}/{}.p'.format(category,file_name), 'wb') as f:
         pickle.dump(data_obj, f)
     with open('/Users/matthewhwang/Galvanize/fightclub/data/processed/all/{}.p'.format(file_name), 'wb') as f:
