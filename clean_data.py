@@ -2,8 +2,36 @@ import pandas as pd
 import numpy as np
 import pickle
 from datetime import datetime
+import os
+import glob
 
-def known_clean_data(input_data_accel,input_data_gyro,num_punches,window,category):
+
+def process_staging():
+    # Processes all new data in staging folder
+    # Spits out to processed folder
+    path = '/Users/matthewhwang/Galvanize/fightclub/data/staging'
+    folders = []
+    
+    # Gets file paths for all folders in staging
+    for r, d, f in os.walk(path):
+        for folder in d:
+            folders.append(os.path.join(r, folder))
+
+    # From each folder get csv path for each accel and gyro
+    # Calls Known Clean Data function to process and store
+    for each in folders:
+        files = [f for f in glob.glob(folders[0] + "**/*.csv")]
+        accel_data = pd.read_csv(files[0])
+        gyro_data = pd.read_csv(files[1])
+        name = files[0].split('/')[-1].split(' ')
+        category = name[0] + " " + name[1]
+        count = int(name[2])
+        user = name[3]
+        known_clean_data(accel_data,gyro_data,count,8,category,user)
+    pass
+
+
+def known_clean_data(input_data_accel,input_data_gyro,num_punches,window,category,user):
 
     # Initial cleaning of data from raw accel to ID events.
     # Input data as Accel and Gyro data from Mbeint Labs Sensor App
