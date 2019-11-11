@@ -62,6 +62,10 @@ If we zoom into each punch occurance and take a snapshot of the window of events
 
 Basically, at this point we know a punch occurred, but we don't know what kind.
 
+Begging the question...
+
+### What The Punch?
+
 ## Comparison of Different Strikes - Combined Magnitude Accelerometer
 
 Let's take a look at the combined magnitude of multiple occurrances of specific punches overlaid on top of each other:
@@ -142,6 +146,8 @@ Model was fed with a 70 / 30 stratified train and test split.
 
 After 100 epochs, the model achieves 95% accuracy on the validation test data.
 
+Model is stored in /models folder for future use.
+
 Hooray!
 
 ## WHAT DO WE DO NOW?
@@ -158,3 +164,7 @@ Unfortunately this is where the story ends (as of Nov 10, 2019)
 - Think about trend data throughout workout
     - Combine with heart rate monitor to gauge fatigue and relationship to quality of strike
 - Use Mbient Lab tools to make mobile app with live feedback and stats
+
+
+![](images/97_ACC_BOI.png)
+Exhibit A - 100 punches thrown, took 100 top 100 values, correctly IDed 97 of them with basic method.
