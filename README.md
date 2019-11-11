@@ -27,7 +27,7 @@ Future work includes making an app that can track and display results in real ti
 
 ## DATA GATHERING METHODOLOGY
 
-In order to gather data about punches, a typical set of 12oz boxing gloves were expertly fitted with sensors that captured 3 axis of accelerometer data and gyroscopic data that synced via bluetooth to a smartphone.
+In order to gather data about punches, a typical set of 12oz boxing gloves were expertly fitted with sensors that captured 3 axis of accelerometer data and gyroscopic data that synced via bluetooth to a smartphone.  Data was recorded at a rate of 25Hz.
 
 ![Gloves with Sensors](images/Golden_Gloves.png)
 
@@ -58,7 +58,9 @@ Punch "event" occurrances can be easily identified by looking for the spikes in 
 
 ![10 Jab Test](images/10_Jab_Test.png)
 
-If we zoom into each punch occurance and take a snapshot of the window of events slightly prior and post the peak magnitude event, we can determine a signature of this event to be classified into a specific strike and determine other metrics such as impact force and hand speed.  Basically, at this point we know a punch occurred, but we don't know what kind.
+If we zoom into each punch occurance and take a snapshot of the window of events slightly prior and post the peak magnitude event, we can determine a signature of this event to be classified into a specific strike and determine other metrics such as impact force and hand speed.  Initial value of 8 data points prior and after chosen based on theoretical max frequency of punches.  This translates to a window of 0.68 seconds centered on the peak magnitude.
+
+Basically, at this point we know a punch occurred, but we don't know what kind.
 
 ## Comparison of Different Strikes - Combined Magnitude Accelerometer
 
@@ -95,7 +97,7 @@ Common signatures for each strike can be visually identified already.  Should be
 
 ## DATA PROCESSING
 
-In the one week timeframe of this project, ~4000 punches were recorded from 10 individuals across ~70 sessions to create the intial dataset.  Shout out to my Galvanize Fam.
+In the one week timeframe of this project, ~4000 punches were recorded from 10 individuals across ~70 sessions to create the intial dataset of 4 unique punches.  Shoutout to my Galvanize Fam.
 
 Cleaning Workflow:
 - Accelerometer and Gyroscopic data were combined for each session
@@ -116,7 +118,43 @@ At this point we are ready to feed the model.
 
 ## MODELING
 
-Since we are concerned with time series data, 
+Since we are concerned with time series data, we are going to a Tensor Flow Long Short Term Memory Recursive Neural Network (TFLSTMRNN) as a trained classification model to pick up on the unique signatures of each strike and classify them.
 
+But what do these models eat?  Time series data fed in predetermined batches:
 
+![RNN](images/time_series.png)
 
+source: tensorflow.org
+
+My model has 6 features (XYZ Accel, XYZ Gyro), time steps of 17 (8 steps before and after peak magnitude), and batch of 20 (based on limited 4000 total available data points)
+
+Architecture of the model can be seen below:
+
+![RNN](images/TF_Architecture.png)
+
+Each LSTM layer utilizes a softmax activation function and an internal dropout rate of 0.5
+
+The dropout layer between the LSTM layers is also set to 0.5
+
+The model is compiled with an RMSProp optimizer and a loss function of sparse categorical entropy.
+
+Model was fed with a 70 / 30 stratified train and test split.
+
+After 100 epochs, the model achieves 95% accuracy on the validation test data.
+
+Hooray!
+
+## WHAT DO WE DO NOW?
+
+With the classification model scoring high, we can set our sights back on the original case of quantifying each strike performed during the workout.
+
+Unfortunately this is where the story ends (as of Nov 10, 2019)
+
+### Future Work Includes:
+- Training a neural net to determine how many strikes occur during a variable length / intensity workout.
+    - Current test data had sessions with predetermined number of strikes which is hard coded
+    - Current method to locate events has inherent error based on sensor frequency.  If frequency is raised, current methodology will be unusable.  See exhibit A below
+- Calculate other metrics aside from classification of strike such as force and hand speed.
+- Think about trend data throughout workout
+    - Combine with heart rate monitor to gauge fatigue and relationship to quality of strike
+- Use Mbient Lab tools to make mobile app with live feedback and stats
