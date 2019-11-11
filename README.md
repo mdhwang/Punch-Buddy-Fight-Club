@@ -165,6 +165,7 @@ Unfortunately this is where the story ends (as of Nov 10, 2019)
 - Think about trend data throughout workout
     - Combine with heart rate monitor to gauge fatigue and relationship to quality of strike
 - Use Mbient Lab tools to make mobile app with live feedback and stats
+- Experimenting with additional strikes and sensor options (increasing Hz on sensor for more granular data)
 
 
 ![](images/97_ACC_BOI.png)
