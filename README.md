@@ -13,6 +13,7 @@ The purpose of this capstone is to create a feedback system that gives the user 
 Main focus from a data science perspective is to measure quantitative attributes to each punch and classify each signature into a specific strike (jab, cross, hook, uppercut, etc.) using a Tensor Flow based LSTM Recursive Neural Network.
 
 Data stream will then be analyzed post workout to determine quantity and quality of each strike.  
+
 Future work includes making an app that can track and display results in real time from streaming data.
 
 ## Potential use of system:
@@ -167,4 +168,4 @@ Unfortunately this is where the story ends (as of Nov 10, 2019)
 
 
 ![](images/97_ACC_BOI.png)
-Exhibit A - 100 punches thrown, took 100 top 100 values, correctly IDed 97 of them with basic method.
+Exhibit A - 100 punches thrown, took 100 of the top values, correctly identified 97 of them with basic method.
