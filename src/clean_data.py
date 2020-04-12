@@ -31,6 +31,7 @@ def process_staging():
         accel_data = pd.read_csv(files[0])
         gyro_data = pd.read_csv(files[1])
         name = files[0].split('/')[-1].split(' ')
+        print(name)
         category = name[0] + " " + name[1]
         count = int(name[2])
         user = name[3]
