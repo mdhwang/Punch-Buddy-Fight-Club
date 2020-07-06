@@ -10,6 +10,8 @@ Quantification of workouts and training allows the athlete to identify strengths
 
 The purpose of this capstone is to create a feedback system that gives the user insight into their boxing workouts.
 
+![Preview](images/punchbuddy.gif)
+
 Main focus from a data science perspective is to measure quantitative attributes to each punch and classify each signature into a specific strike (jab, cross, hook, uppercut, etc.) using a Tensor Flow based LSTM Recursive Neural Network.
 
 Data stream will then be analyzed post workout to determine quantity and quality of each strike.  
