@@ -12,6 +12,10 @@ The purpose of this capstone is to create a feedback system that gives the user 
 
 ![Preview](images/punchbuddy.gif)
 
+Full video with "Eye of the Tiger" overlayed for obvious reasons:
+
+[Check it out](https://streamable.com/e0jbvj)
+
 Main focus from a data science perspective is to measure quantitative attributes to each punch and classify each signature into a specific strike (jab, cross, hook, uppercut, etc.) using a Tensor Flow based LSTM Recursive Neural Network.
 
 Data stream will then be analyzed post workout to determine quantity and quality of each strike.  
