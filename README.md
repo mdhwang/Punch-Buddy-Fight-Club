@@ -10,7 +10,7 @@ Quantification of workouts and training allows the athlete to identify strengths
 
 The purpose of this capstone is to create a feedback system that gives the user insight into their boxing workouts.
 
-![Preview](images/punchbuddy.gif)
+[<img src = "images/punchbuddy.gif">](https://streamable.com/e0jbvj)
 
 Full video with "Eye of the Tiger" overlayed for obvious reasons:
 
